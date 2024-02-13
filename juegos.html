@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>EmotiKids</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <!-- Responsive style -->
+    <link href="assets/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body style="background-image: url('assets/images/blanco.jpg');">
+    <div class="top_container">
+        <!-- Header section -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="#">
+                        <img src="assets/images/logo.png" alt="">
+                        <span>
+                            EmotiKids
+                        </span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                          <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="index.html"> INICIO <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="emociones.html"> EMOCIONES </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="juegos.html"> JUEGOS </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="consejos.html"> CONSEJOS </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="contactos.html"> CONTACTO</a>
+                                    </li>
+                                  </ul>
+
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero section -->
+        <section class="hero_section">
+          <div class="hero-container container">
+            <div class="hero_detail-box">
+              <h1>
+                EMOCIONES
+              </h1>
+              <p>
+              En esta sección encontrarás información educativa sobre diferentes emociones, como la alegría, la tristeza, el miedo, la ira, la sorpresa, entre otras.
+              </p>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="row content-center"> <!-- Cambiado de justify-content-end a justify-content-center -->
+              <div clas="col-md-4" style="text-align: justify; font-family: 'Times New Roman', Times, serif; font-size: 24px;">
+                <h1>"Las emociones son la paleta de colores de nuestra existencia."</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- End Hero section -->
+
+<title>Memory de Emociones</title>
+<style>
+  /* Estilos CSS */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .memory-card {
+    width: 150px;
+    height: 150px;
+    background-color: gray;
+    border-radius: 10px;
+    cursor: pointer;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .memory-card.flip .back-face {
+    transform: rotateY(180deg);
+  }
+
+  .memory-card.flip .front-face {
+    transform: rotateY(0deg);
+  }
+
+  .front-face,
+  .back-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .back-face img {
+    max-width: 100%; /* Ajustar tamaño */
+    max-height: 100%; /* Ajustar tamaño */
+  }
+
+  .emotion-img {
+    width: 100px; /* Tamaño ajustado para las imágenes de las emociones */
+    height: 100px; /* Tamaño ajustado para las imágenes de las emociones */
+  }
+
+  #timer {
+    margin-top: 20px;
+    font-size: 24px;
+  }
+
+  /* Estilos para WIN y Game Over */
+  #win-msg, #gameover-msg {
+    font-size: 36px;
+    margin-top: 20px;
+  }
+
+  #win-msg {
+    color: green; /* Color verde para WIN */
+  }
+
+  #gameover-msg {
+    color: red; /* Color rojo para Game Over */
+  }
+
+  /* Estilo para el botón Play */
+  #play-btn {
+    margin-top: 20px;
+  }
+
+  /* Estilo para centrar el contenido */
+  .content-center {
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+
+
+<hr class="yellow-line">
+
+
+<br> <br><br> <br><br>
+<!-- Juego de memoria -->
+<div class="container content-center">
+  <h1>Memory de Emociones</h1>
+  <div id="memory-game" class="memory-grid"></div>
+  <button id="play-btn">Play</button>
+  <div id="timer">Tiempo restante: <span id="time">60</span> segundos</div>
+</div>
+
+<script>
+  // Array de emociones con sus imágenes correspondientes
+  const emotions = [
+    { emotion: 'feliz', image: 'https://i.pinimg.com/originals/4a/2c/da/4a2cdaff7d9b6bc6bcf82a6d1a5b9f44.gif' },
+    { emotion: 'miedo', image: 'https://images.emojiterra.com/google/noto-emoji/unicode-15/animated/1f628.gif' },
+    { emotion: 'tristeza', image: 'https://i.pinimg.com/originals/e7/df/70/e7df701eb811226c5ef81a8b47413c52.gif' },
+    { emotion: 'ira', image: 'https://usagif.com/wp-content/uploads/gif/angry-27.gif' },
+    { emotion: 'sorpresa', image: 'https://i.pinimg.com/originals/9e/42/db/9e42db184ee238abb3240a8ee4bd93aa.gif' },
+    { emotion: 'asco', image: 'https://emojicdn.elitemojis.com/static/img/emoji_svg/twitter/1f92e.svg' }
+  ];
+
+  // Función para barajar el array de emociones
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const memoryGame = document.getElementById('memory-game');
+  let cards = [];
+  let matchedPairs = 0; // Variable para contar los pares coincidentes
+
+  function createCards() {
+    // Eliminar las cartas existentes
+    memoryGame.innerHTML = '';
+
+    // Mostrar las cartas
+    cards.forEach(card => {
+      memoryGame.appendChild(card);
+    });
+  }
+
+  function flipCard() {
+    if (lockBoard) return;
+    if (this === firstCard) return;
+
+    this.classList.add('flip');
+
+    if (!hasFlippedCard) {
+      hasFlippedCard = true;
+      firstCard = this;
+      return;
+    }
+
+    secondCard = this;
+    checkForMatch();
+  }
+
+  function checkForMatch() {
+    let isMatch = firstCard.dataset.emotion === secondCard.dataset.emotion;
+    isMatch ? disableCards() : unflipCards();
+  }
+
+  function disableCards() {
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+
+    matchedPairs++;
+    if (matchedPairs === emotions.length) {
+      endGame();
+    }
+
+    resetBoard();
+  }
+
+  function unflipCards() {
+    lockBoard = true;
+
+    setTimeout(() => {
+      firstCard.classList.remove('flip');
+      secondCard.classList.remove('flip');
+
+      resetBoard();
+    }, 1000);
+  }
+
+  function resetBoard() {
+    [hasFlippedCard, lockBoard] = [false, false];
+    [firstCard, secondCard] = [null, null];
+  }
+
+  function startGame() {
+    matchedPairs = 0; // Reiniciar el contador de pares coincidentes
+    // Crear cartas
+    cards = shuffle([...emotions, ...emotions]).map(emotion => {
+      const card = document.createElement('div');
+      card.classList.add('memory-card');
+      card.dataset.emotion = emotion.emotion;
+
+      const frontFace = document.createElement('div');
+      frontFace.classList.add('front-face');
+
+      const backFace = document.createElement('div');
+      backFace.classList.add('back-face');
+
+      const img = document.createElement('img');
+      img.src = 'https://pastomagic.com/wp-content/uploads/2010/06/Imagen-4.png'; // Imagen de reverso
+      img.alt = 'Reverso';
+      img.width = '300'; // Tamaño ajustado
+      img.height = '300'; // Tamaño ajustado
+      backFace.appendChild(img);
+
+      const emotionImg = document.createElement('img');
+      emotionImg.src = emotion.image; // Imagen de la emoción
+      emotionImg.alt = emotion.emotion;
+      emotionImg.width = '100'; // Tamaño ajustado
+      emotionImg.height = '100'; // Tamaño ajustado
+      emotionImg.classList.add('emotion-img'); // Agregar la clase emotion-img
+      frontFace.appendChild(emotionImg);
+
+      card.appendChild(frontFace);
+      card.appendChild(backFace);
+
+      card.addEventListener('click', flipCard);
+      return card;
+    });
+
+    // Mostrar las cartas boca abajo (gris)
+    createCards();
+  }
+
+  function endGame() {
+    const memoryGameContainer = document.getElementById('memory-game');
+    memoryGameContainer.innerHTML = '<h2 id="win-msg">¡WIN!</h2>';
+
+    // Ocultar el botón Play
+    document.getElementById('play-btn').style.display = 'none';
+
+    // Detener el temporizador
+    clearInterval(countdown);
+  }
+
+  // Botón de Play
+  const playBtn = document.getElementById('play-btn');
+  playBtn.addEventListener('click', () => {
+    startGame();
+
+    // Ocultar el botón Play
+    playBtn.style.display = 'none';
+
+    // Iniciar temporizador
+    let timeLeft = 60;
+    const timer = document.getElementById('time');
+    countdown = setInterval(() => {
+      timeLeft--;
+      timer.textContent = timeLeft;
+      if (timeLeft === 0) {
+        clearInterval(countdown);
+        memoryGame.innerHTML = '<h2 id="gameover-msg">¡Game Over!</h2>';
+
+        // Mostrar el botón Play nuevamente si el juego termina
+        playBtn.style.display = 'block';
+      }
+    }, 1000);
+  });
+
+  let hasFlippedCard = false;
+  let lockBoard = false;
+  let firstCard, secondCard;
+  let countdown; // Variable para el temporizador
+</script>
+
+<!-- Footer section -->
+<section class="footer_section">
+    <div class="container-fluid">
+        <p>
+            PAGINA DESARROLLADA POR: <a href="#">ALEJANDRA ATI</a>
+        </p>
+    </div>
+</section>
+<!-- End Footer section -->
+
+<!-- jQuery -->
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="assets/js/bootstrap.js"></script>
+</body>
+
+</html>
